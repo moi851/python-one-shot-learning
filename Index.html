@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>파이썬 한방에 배우기</title>
+    
+    <!-- Markdown 렌더링을 위한 marked.js -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+    <!-- 코드 하이라이팅을 위한 highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    
+    <style>
+        body {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: 'Nanum Gothic', sans-serif;
+            line-height: 1.6;
+        }
+        pre {
+            background-color: #f6f8fa;
+            padding: 16px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Consolas', monospace;
+        }
+        h1, h2, h3 {
+            border-bottom: 1px solid #eaecef;
+            padding-bottom: 0.3em;
+        }
+    </style>
+</head>
+<body>
+    <div id="content"></div>
+
+    <script>
+        // 마크다운 파일 불러오기
+        fetch('./python_doc.md')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then(text => {
+                // 마크다운을 HTML로 변환
+                document.getElementById('content').innerHTML = marked.parse(text);
+                
+                // 코드 블록에 하이라이팅 적용
+                document.querySelectorAll('pre code').forEach((block) => {
+                    hljs.highlightBlock(block);
+                });
+            })
+            .catch(error => {
+                console.error('마크다운 파일을 불러오는데 실패했습니다:', error);
+                let errorMessage = '문서를 불러오는데 실패했습니다.';
+                if (error.message.startsWith('Failed to fetch')) {
+                    errorMessage += ' (파일 경로를 확인해주세요.)';
+                } else {
+                    errorMessage += ` (${error.message})`;
+                }
+                document.getElementById('content').innerHTML = `<p>${errorMessage}</p>`;
+            });
+    </script>
+</body>
+</html>
