@@ -19,9 +19,19 @@
             padding: 20px;
             font-family: 'Nanum Gothic', sans-serif;
             line-height: 1.6;
+            background-color: #f4f4f4; /* 연한 회색 배경색 추가 */
+        }
+        #content {
+            background-color: #fff; /* 콘텐츠 영역 흰색 배경 */
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 그림자 효과 */
         }
         code {
             font-family: 'Consolas', monospace;
+            background-color: #eee; /* 코드 블록 배경색 */
+            padding: 2px 5px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
         }
         h1, h2, h3 {
             border-bottom: 1px solid #eaecef;
@@ -30,8 +40,8 @@
     </style>
 </head>
 <body>
+    <h1>파이썬 한방에 배우기</h1>
     <div id="content"></div>
-
     <script>
         // 마크다운 파일 불러오기
         fetch('./python_doc.md')
